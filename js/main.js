@@ -162,7 +162,7 @@ Vue.createApp({
         getPostPag: function(){
             const posStart = (this.page-1)*this.maxElementPage; //start position
             const posFinal = posStart + this.maxElementPage; //final position
-            return this.searchResult.slice(posStart,posFinal); //dividing all ifo in pages
+            return this.searchResult.slice(0,posFinal); //dividing all ifo in pages
         },
 
         //func. get and show inform.from API 
