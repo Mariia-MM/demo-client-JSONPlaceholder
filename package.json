@@ -1,0 +1,22 @@
+{
+  "name": "demo-client-jsonplaceholder",
+  "version": "1.0.0",
+  "description": "this is an example of creating of blog from API REST.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mariia-MM/demo-client-JSONPlaceholder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mariia-MM/demo-client-JSONPlaceholder/issues"
+  },
+  "homepage": "https://github.com/Mariia-MM/demo-client-JSONPlaceholder#readme",
+  "dependencies": {
+    "vue": "^3.2.31"
+  }
+}

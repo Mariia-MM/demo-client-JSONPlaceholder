@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="js/main.js"></script>
+    <script src="node_modules/vue/dist/vue.global.js"></script>
+    <title>Blog JSONPlaceholder</title>
+   
+</head>
+<body>
+   <main id="app">
+         <div class="container">
+            <h1>Blog JSONPlaceholder</h1>
+            <section class="article-list">
+                <article v-for="post in getPostPag()" :class="{'loading':loading}">
+                    <h2>{{post.title}}</h2>
+                    <footer v-if="users.length > 0">Author:{{getNameUser(post.userId)}}</footer>
+                </article>
+                <div class="paginator">
+                    <button v-if="page!=1" @click="prevPage" >👈</button>
+                    <span>{{page}}</span>
+                    <button v-if=" page!= totalPages" @click="nextPage" >👉</button>
+                </div>
+            </section>
+        </div>
+   </main>
+</body>
+</html>

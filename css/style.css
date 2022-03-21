@@ -1,0 +1,21 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+.container{
+    max-width: 700px;
+    margin: 0 auto;
+}
+.paginator{
+    display: flex;
+    grid-gap: 2rem;
+    justify-content: center;
+}
+.paginator button {
+    background: initial;
+    border: 0;
+    font-size: 2rem;
+}
+.loading{
+    filter: blur(5px);
+}
