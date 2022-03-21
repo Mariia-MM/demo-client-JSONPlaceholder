@@ -16,6 +16,16 @@ body{
     border: 0;
     font-size: 2rem;
 }
-.loading{
-    filter: blur(5px);
+/* transition*/
+.fade-enter-active,
+.fade-leave-active{
+    transition: opacity .3s ease-in-out;
+}
+.fade-enter-from,
+.fade-leave-to{
+    opacity: 0;
+}
+.content-container{
+    overflow: hidden;
+    transition: height .3s ease-in-out;
 }

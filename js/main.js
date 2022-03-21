@@ -40,11 +40,47 @@ Vue.createApp({
             page: 1,
             maxElementPage: 5,
             totalPages: 0,
+            showBodySet: new Set()
            
 
         }
     },
     methods: {
+        //transitions
+        addRealHeight:function(el){
+            el.style.height =  `${el.scrollHeight}px`;
+        },
+        addHeightZero: function(el){
+            el.style.height = "0";
+        },
+
+        //func for hide full text of post
+        hidePostBody: function(id){
+            this.showBodySet.delete(id); /*deleting id of opened post from Set of id
+                                          for hiding the full post*/
+        },
+
+        //func for show full text of post
+        showPostBody: function(id){
+            this.showBodySet.add(id); //adding to Set id of opened(showed) post 
+        },
+
+        //func for button Show more
+        toggleBody: function(id){
+           /*using method of Set (has) revising if there id of post 
+            for hide or show it*/
+            switch(this.showBodySet.has(id)){
+                case true:
+                    this.hidePostBody(id);
+                    break;
+
+                case false:
+                    this.showPostBody(id);
+                    break;
+            }       
+        },
+
+
         //func for to get user name using  user id
         getNameUser: function(id){
                 // return this.users.filter(user => id === user.id)[0].name;

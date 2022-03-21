@@ -16,6 +16,20 @@
             <section class="article-list">
                 <article v-for="post in getPostPag()" :class="{'loading':loading}">
                     <h2>{{post.title}}</h2>
+                    <button @click="toggleBody(post.id)">Show more...</button>
+
+                    <transition  
+                    @before-enter="addHeightZero"
+                    @enter="addRealHeight"
+                    @before-leave="addRealHeight"
+                    @leave="addHeightZero"
+                    :css="true"
+                    >
+                        <div v-if="showBodySet.has(post.id)" class="content-container">
+                            <p  >{{post.body}}</p>
+                        </div>
+                    </transition>                        
+
                     <footer v-if="users.length > 0">Author:{{getNameUser(post.userId)}}</footer>
                 </article>
                 <div class="paginator">
