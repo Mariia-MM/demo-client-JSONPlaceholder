@@ -3,6 +3,7 @@ Vue.createApp({
         return {
             urlAPIPost: 'https://jsonplaceholder.typicode.com/posts',
             urlAPIUsers:'https://jsonplaceholder.typicode.com/users',
+            urlAPIComments: 'https://jsonplaceholder.typicode.com/comments',
             loading : true,
             posts: [
                 {
@@ -37,12 +38,12 @@ Vue.createApp({
                 }
             ],
             users:[],
+            comments: [],
             page: 1,
             maxElementPage: 5,
             totalPages: 0,
             showBodySet: new Set(),
-            searchRequest: ""
-           
+            searchRequest: ""           
 
         }
     },
@@ -57,6 +58,8 @@ Vue.createApp({
 
     },
     methods: {
+        
+
         //transitions
         addRealHeight:function(el){
             el.style.height =  `${el.scrollHeight}px`;
@@ -114,19 +117,36 @@ Vue.createApp({
            return user.name;
         },
 
-        // func get all users from API
-        getUsers: async function(){
-            const fetchUsers= await fetch(this.urlAPIUsers); //get info from API
-            const jsonUsers= await fetchUsers.json(); //transform info in JSON
-            this.users = jsonUsers; //saving info about users
+        //func for to get data of comments
+        getCommentsRelatedToPost: function(postId){
+            const commentList=this.comments.filter(comment => postId === comment.postId);
+            // const resultObject={};
+            // resultObject.name = comment.name;
+            // resultObject.body = comment.body;
+            return commentList;
+        },
+               
+        //func for to get data fron API
+        getData: async function(url){
+
+            const fetchData= await fetch(url); //get info from API
+            const jsonData= await fetchData.json(); //transform info in JSON
+            return jsonData; //push info in variable
 
         },
-
+         // func get all users from API
+         getUsers: async function(url){            
+            this.users = await this.getData(url); 
+        },
+         // func get all commentss from API
+         getComments: async function(url){            
+            this.comments = await this.getData(url); 
+        },
+        
         //func for create previous page
         prevPage:function () {
             this.page -= 1
             //this.getPosts();
-
         },
 
         //func for create next page
@@ -164,8 +184,9 @@ Vue.createApp({
     mounted: function() {
         //constructor
         //Download info
-        this.getUsers();
+        this.getUsers(this.urlAPIUsers);
         this.getPosts();
+        this.getComments(this.urlAPIComments);
         
         
 

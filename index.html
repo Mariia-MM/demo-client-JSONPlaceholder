@@ -20,7 +20,10 @@
                 </form>
                 <article v-for="post in getPostPag()" :class="{'loading':loading}">
                     <h2>{{post.title}}</h2>
-                    <button @click="toggleBody(post.id)">Show more...</button>
+                    <button @click="toggleBody(post.id)">Show 
+                        <span v-if="!showBodySet.has(post.id)">more...</span>
+                        <span v-else>less...</span>
+                    </button>
 
                     <transition  
                     @before-enter="addHeightZero"
@@ -31,6 +34,11 @@
                     >
                         <div v-if="showBodySet.has(post.id)" class="content-container">
                             <p  >{{post.body}}</p>
+                            <article v-for="comment in getCommentsRelatedToPost(post.id)">
+                                <h5>{{comment.name}}</h5>
+                                <p>{{comment.body}}</p>
+
+                            </article>
                         </div>
                     </transition>                        
 
