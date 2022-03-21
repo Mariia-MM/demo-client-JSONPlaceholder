@@ -40,10 +40,21 @@ Vue.createApp({
             page: 1,
             maxElementPage: 5,
             totalPages: 0,
-            showBodySet: new Set()
+            showBodySet: new Set(),
+            searchRequest: ""
            
 
         }
+    },
+    computed:{
+        searchResult: function(){
+            const result = this.posts.filter(post=>post.title.includes(this.searchRequest));
+
+            this.totalPages = Math.ceil(result.length/this.maxElementPage); //calc the quantity of pages
+
+            return result;
+        }
+
     },
     methods: {
         //transitions
@@ -131,7 +142,7 @@ Vue.createApp({
         getPostPag: function(){
             const posStart = (this.page-1)*this.maxElementPage; //start position
             const posFinal = posStart + this.maxElementPage; //final position
-            return this.posts.slice(posStart,posFinal); //dividing all ifo in pages
+            return this.searchResult.slice(posStart,posFinal); //dividing all ifo in pages
         },
 
         //func. get and show inform.from API 
@@ -141,9 +152,14 @@ Vue.createApp({
             const jsonPosts= await fetchPosts.json(); //transform info in JSON
             this.posts = jsonPosts; //push info in variable
             this.loading = false;
-            this.totalPages = Math.ceil(this.posts.length/this.maxElementPage); //calc the quantity of pages
 
         }        
+    },
+    watch:{
+        searchRequest: function(){
+            this.page=1;
+
+        }
     },
     mounted: function() {
         //constructor

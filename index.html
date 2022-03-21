@@ -14,6 +14,10 @@
          <div class="container">
             <h1>Blog JSONPlaceholder</h1>
             <section class="article-list">
+                <form>
+                    <label for="search">Filter by title</label>
+                    <input id="search" name="search" type="search" v-model="searchRequest">
+                </form>
                 <article v-for="post in getPostPag()" :class="{'loading':loading}">
                     <h2>{{post.title}}</h2>
                     <button @click="toggleBody(post.id)">Show more...</button>
