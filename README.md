@@ -1,0 +1,1 @@
+this is an example of creating of blog from API REST.
