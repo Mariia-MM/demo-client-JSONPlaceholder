@@ -18,7 +18,7 @@
                     <label for="search">Filter by title</label>
                     <input id="search" name="search" type="search" v-model="searchRequest">
                 </form>
-                <article v-for="post in getPostPag()" :class="{'loading':loading}">
+                <article v-if="getPostPag().length > 0" v-for="post in getPostPag()" :class="{'loading':loading}">
                     <h2>{{post.title}}</h2>
                     <button @click="toggleBody(post.id)">Show 
                         <span v-if="!showBodySet.has(post.id)">more...</span>
@@ -44,10 +44,9 @@
 
                     <footer v-if="users.length > 0">Author:{{getNameUser(post.userId)}}</footer>
                 </article>
-                <div class="paginator">
-                    <button v-if="page!=1" @click="prevPage" >👈</button>
-                    <span>{{page}}</span>
-                    <button v-if=" page!= totalPages" @click="nextPage" >👉</button>
+                <h2 v-else>No results</h2>
+                <div v-if="getPostPag().length > 0" class="paginator" ref="paginator">                    
+                    <button v-if=" page!= totalPages" @click="nextPage" >Load more</button>
                 </div>
             </section>
         </div>

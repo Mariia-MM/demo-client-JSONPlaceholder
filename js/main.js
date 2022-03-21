@@ -128,11 +128,9 @@ Vue.createApp({
                
         //func for to get data fron API
         getData: async function(url){
-
             const fetchData= await fetch(url); //get info from API
             const jsonData= await fetchData.json(); //transform info in JSON
             return jsonData; //push info in variable
-
         },
          // func get all users from API
          getUsers: async function(url){            
@@ -145,17 +143,14 @@ Vue.createApp({
         
         //func for create previous page
         prevPage:function () {
-            this.page -= 1
-            //this.getPosts();
+            this.page -= 1            
         },
 
         //func for create next page
         nextPage: function (){
             this.page+=1
             //this.pag=this+1
-            //this.pag++
-
-             //this.getPosts();
+            //this.pag++            
         },
 
         //func. create paging
@@ -172,8 +167,22 @@ Vue.createApp({
             const jsonPosts= await fetchPosts.json(); //transform info in JSON
             this.posts = jsonPosts; //push info in variable
             this.loading = false;
+        },
+        addPaginatorInfinite: function(){
+            // Creamos un objeto IntersectionObserver
+            const observerPaginator = new IntersectionObserver((entries) => {
+                // Comprobamos todas las intesecciones. En el ejemplo solo existe una: cuadrado
+                entries.forEach((entry) => {
+                    // Si es observable, entra
+                    if (entry.isIntersecting) {
+                        this.nextPage();
+                    }
+                });
+            });
 
-        }        
+            // Añado a mi Observable que quiero observar. En este caso el cuadrado
+            observerPaginator.observe(this.$refs.paginator);
+        },
     },
     watch:{
         searchRequest: function(){
@@ -187,6 +196,7 @@ Vue.createApp({
         this.getUsers(this.urlAPIUsers);
         this.getPosts();
         this.getComments(this.urlAPIComments);
+        this.addPaginatorInfinite();
         
         
 
